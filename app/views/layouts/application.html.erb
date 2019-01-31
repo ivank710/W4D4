@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if logged_in? %>
+      <h2>Welcome, <%= current_user.email %></h2>
+      <form action="<%= session_url %>" method="post">
+        <input name="_method" value="delete" type="hidden"/>
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
+        <input type="submit" value="Logout"/>
+      </form>
+    <% else %>
+      <a href= "<%= new_session_url %>">Sign In</a>   
+      
+      <br> 
+      <a href= "<%= new_user_url %>">Sign Out</a>  
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
